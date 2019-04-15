@@ -76,5 +76,13 @@ deploy:
       cmd: /pipeline/source/pipeline
       #port: "8080"
       tag: latest
-      repository: cloudnativego/gogo-service
+      repository: elegoff/pipeline
       registry: https://registry.hub.docker.com     
+    - cng/cf-deploy:
+      api: $API
+      user: $USER
+      password: $PASSWORD
+      org: $ORG
+      space: $SPACE
+      appname: pipeline
+      docker_image: elegoff/pipeline
