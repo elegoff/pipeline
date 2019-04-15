@@ -16,6 +16,28 @@ box: golang
 
     # - mongo
     # https://devcenter.wercker.com/administration/services/examples/mongodb/
+dev:
+  steps:
+  - setup-go-workspace:
+    package-dir: github.com/elegoff/pipeline
+
+  - script:
+    name: env
+    code: env
+
+  - script:
+    name: go get
+    code: |
+      cd $WERCKER_SOURCE_DIR
+      go version
+      go get -u github.com/Masterminds/glide
+      export PATH=$WERCKER_SOURCE_DIR/bin:$PATH
+      glide install
+
+  - internal/watch:
+    code: go run main.go
+    reload: true
+
 build:
   # The steps that will be executed on build
   # Steps make up the actions in your pipeline
