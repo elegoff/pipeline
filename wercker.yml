@@ -25,15 +25,6 @@ dev:
     name: env
     code: env
 
-  - script:
-    name: go get
-    code: |
-      cd $WERCKER_SOURCE_DIR
-      go version
-      go get -u github.com/Masterminds/glide
-      export PATH=$WERCKER_SOURCE_DIR/bin:$PATH
-      glide install
-
   - internal/watch:
     code: go run main.go
     reload: true
@@ -77,12 +68,5 @@ deploy:
       #port: "8080"
       tag: latest
       repository: elegoff/pipeline
-      registry: https://registry.hub.docker.com     
-    - cng/cf-deploy:
-      api: $API
-      user: $USER
-      password: $PASSWORD
-      org: $ORG
-      space: $SPACE
-      appname: pipeline
-      docker_image: elegoff/pipeline
+      registry: https://registry.hub.docker.com
+      
